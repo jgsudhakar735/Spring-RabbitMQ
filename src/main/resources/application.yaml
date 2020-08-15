@@ -1,0 +1,49 @@
+# This application will be sample application for the Spring boot with Rabbit MQ for Queue system
+server:
+  port: 9191
+  servlet:
+    context-path: /spring-mq
+
+# Data Base Properties
+spring:
+  datasource:
+    username: root
+    password: tagit
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/study?useSSL=false
+    initialization-mode: never
+    type: com.mysql.cj.jdbc.MysqlConnectionPoolDataSource
+  main:
+    banner-mode: console
+    allow-bean-definition-overriding: true
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration
+
+  jpa:
+    show-sql: true
+    open-in-view: false
+    properties:
+      release_mode: after_transaction
+      agressive_release: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+# Rabbit MQ Properties to communicate with the server
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+# Flyway Properties from Parent Artifacts
+jgsudhakar:
+  flyway:
+    - enabled: true
+      baseline-version: 1
+      location-suffix: mq
+      table-name: SUDHAKAR_SCHEMA_VERSION
+      validate-on-migrate: true
+      base-line-description: SAMPLE
+      baseline-on-migrate: true
+  flyway-enabled: true
+debug: false
