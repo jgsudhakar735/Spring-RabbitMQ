@@ -1,33 +1,40 @@
 package com.jgsudhakar.spring.mq.listner;
 
-import org.springframework.amqp.core.AcknowledgeMode;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageListener;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import com.jgsudhakar.spring.mq.dto.request.StudentReq;
+import com.jgsudhakar.spring.mq.services.EmployeeService;
+import com.jgsudhakar.spring.mq.services.StudentService;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @Author : Sudhakar Tangellapalli
- * @File : com.jgsudhakar.spring.mq.listner.RabbitMQListner
- * @Date : 14/08/2020
+ * @File : com.jgsudhakar.spring.mq.listner.RabbitMQListener
+ * @Date : 15/08/2020
  */
-@Service
-public class RabbitMQListener implements MessageListener {
+@Component
+public class RabbitMQListener {
 
-    @Override
-    public void onMessage(Message message) {
-        System.out.println(" In the Message Method ");
-        System.out.println(new String(message.getBody()));
+    @Autowired
+    private StudentService studentService;
+
+    @Autowired
+    private EmployeeService employeeService;
+
+    @RabbitListener(queues = {"stu-queue"})
+    public <T> void studentListener(StudentReq studentReq) {
+        System.out.println("StudentReq Message From RabbitMQ: " + studentReq.toString());
+        studentService.save(studentReq);
     }
 
-    @Override
-    public void containerAckMode(AcknowledgeMode mode) {
-        System.out.println(" In the containerAckMode Method ");
+//    @RabbitListener(queues = {"stu-queue"})
+//    public <T> void headerMessage(Message message) {
+//        System.out.println("Header Message From RabbitMQ: " + message.toString());
+//    }
+
+    @RabbitListener(queues = {"emp-queue"})
+    public <T> void employeeListener(T reqData) {
+            System.out.println("Employee Recieved Message From RabbitMQ: " + reqData.toString());
     }
 
-    @Override
-    public void onMessageBatch(List<Message> messages) {
-        System.out.println(" In the onMessageBatch Method ");
-    }
 }

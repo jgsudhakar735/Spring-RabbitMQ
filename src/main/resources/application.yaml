@@ -21,7 +21,7 @@ spring:
 
   jpa:
     show-sql: true
-    open-in-view: false
+    open-in-view: true
     properties:
       release_mode: after_transaction
       agressive_release: true
@@ -35,6 +35,14 @@ spring:
     password: guest
     host: localhost
     port: 5672
+    listener:
+      direct:
+        retry:
+          max-attempts: 3
+          max-interval: 10s
+          initial-interval: 2s
+          enabled: true
+          multiplier: 2
 # Flyway Properties from Parent Artifacts
 jgsudhakar:
   flyway:

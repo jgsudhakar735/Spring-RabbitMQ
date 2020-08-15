@@ -11,16 +11,21 @@ public final class Constants {
 
     }
 
-    public static String LISTENER_NAME = "jgsudhakar";
-
-    public static String QUEUE_NAME = "msg-queue";
-
     public static String TOPIC_EXCHANGE_TYPE = "msg-topic";
-
-    public static String DIRECT_EXCHANGE_TYPE = "msg-direct";
 
     public static String DIRECT_EXCHANGE_QUEUE = "msg-direct-queue";
 
-    public static String ROUTER_KEY = LISTENER_NAME + "_router";
+    public static  String EMPLOYEE_QUEUE = "emp-queue";
 
+    public static  String STUDENT_QUEUE = "stu-queue";
+
+    public static  String STUDENT_ROUTE = "stu-route";
+
+    public static  String EMPLOYEE_ROUTE = "emp-route";
+
+    public static String FANOUT_EXCHANGE_QUEUE = "msg-fanout-queue";
+
+    public static String HEADER_EXCHANGE_QUEUE = "msg-header-queue";
+
+    public static String DIRECT_DEAD_LETTER = "deadLetter";
 }

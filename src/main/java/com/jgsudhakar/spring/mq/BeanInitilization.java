@@ -1,18 +1,14 @@
 package com.jgsudhakar.spring.mq;
 
-import com.jgsudhakar.spring.mq.listner.RabbitMQListener;
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.rabbit.listener.MessageListenerContainer;
-import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import static com.jgsudhakar.spring.mq.util.Constants.*;
 
 /**
  * @Author : Sudhakar Tangellapalli
@@ -22,43 +18,33 @@ import static com.jgsudhakar.spring.mq.util.Constants.*;
 @Configuration
 public class BeanInitilization {
 
-    /**
-     * Creating the Queue Object, as Rabbit MQ server will all the messages before it send to the
-     * actual topic.
-     * */
-    @Bean
-    public Queue queue() {
-        return new Queue(QUEUE_NAME,true);
-    }
+    @Value("${spring.rabbitmq.username}")
+    public String userName;
 
-    /**
-     * Topic which is created in the Rabbit MQ server. This will help us to send the message to the specific
-     * topic
-     * */
-    @Bean
-    public TopicExchange exchange() {
-     return new TopicExchange(TOPIC_EXCHANGE_TYPE);
-    }
+    @Value("${spring.rabbitmq.password}")
+    public String password;
 
-    @Bean
-    public DirectExchange directExchange() {
-        return new DirectExchange(DIRECT_EXCHANGE_QUEUE);
-    }
+    @Value("${spring.rabbitmq.host}")
+    public String host;
 
-    @Autowired
-    private RabbitMQListener rabbitMQListener;
+    @Value("${spring.rabbitmq.port}")
+    public Integer port;
 
-    /**
-     * Binding the Queue and Topic to . So all the messages send to topic will always pass through this.
-     * */
-    @Bean
-    public Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(ROUTER_KEY);
-    }
+//    @Autowired
+//    private MessageQueueListener rabbitMQListener;
 
     @Bean
     public MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
+    }
+
+    //create custom connection factory
+    @Bean
+    public ConnectionFactory connectionFactory() {
+        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory(host,port);
+        cachingConnectionFactory.setUsername(userName);
+        cachingConnectionFactory.setUsername(password);
+        return cachingConnectionFactory;
     }
 
     @Bean
@@ -69,23 +55,15 @@ public class BeanInitilization {
     }
 
     // registering the listener as the both producer and consumer in the same application
-    @Bean
+  /*  @Bean
     public MessageListenerContainer messageListenerContainer(ConnectionFactory connectionFactory) {
         SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer();
         simpleMessageListenerContainer.setConnectionFactory(connectionFactory);
         simpleMessageListenerContainer.setQueues(queue());
         simpleMessageListenerContainer.setMessageListener(rabbitMQListener);
         return simpleMessageListenerContainer;
-    }
+    }*/
 
-    //create custom connection factory
-	/*@Bean
-	ConnectionFactory connectionFactory() {
-		CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory("localhost");
-		cachingConnectionFactory.setUsername(username);
-		cachingConnectionFactory.setUsername(password);
-		return cachingConnectionFactory;
-	}*/
 
     //create MessageListenerContainer using custom connection factory
 	/*@Bean

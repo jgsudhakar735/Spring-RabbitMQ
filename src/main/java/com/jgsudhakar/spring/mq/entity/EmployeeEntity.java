@@ -19,7 +19,7 @@ import javax.persistence.*;
 public class EmployeeEntity extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "AS_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "AS_SEQ")
     @SequenceGenerator(name = "AS_SEQ", sequenceName = "AS_SEQ",allocationSize = 1,initialValue = 1)
     @Column(name = "ID")
     private Long id;
