@@ -1,9 +1,5 @@
 package com.jgsudhakar.spring.mq.services;
 
-import com.jgsudhakar.base.request.BaseRequest;
-import com.jgsudhakar.base.response.BaseResponse;
-import com.jgsudhakar.base.service.BaseDBServices;
-import com.jgsudhakar.base.service.BaseService;
 import com.jgsudhakar.spring.mq.dto.request.EmployeReq;
 import com.jgsudhakar.spring.mq.dto.response.EmployeRes;
 import com.jgsudhakar.spring.mq.entity.EmployeeEntity;

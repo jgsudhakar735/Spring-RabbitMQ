@@ -1,7 +1,7 @@
 package com.jgsudhakar.spring.mq.repository;
 
-import com.jgsudhakar.base.repository.BaseRepository;
 import com.jgsudhakar.spring.mq.entity.EmployeeEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  * @Date : 13/08/2020
  */
 @Repository
-public interface EmployeeRepository extends BaseRepository<EmployeeEntity,Long> {
+public interface EmployeeRepository extends JpaRepository<EmployeeEntity,Long> {
 }

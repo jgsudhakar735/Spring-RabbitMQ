@@ -28,7 +28,7 @@ dependencies {
 	}
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
-	compile files ('customlib/jgsudhakar-1.0.jar')
+	// compile files ('customlib/jgsudhakar-1.0.jar')
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	implementation 'mysql:mysql-connector-java'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
