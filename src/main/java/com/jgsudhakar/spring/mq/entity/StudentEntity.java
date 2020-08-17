@@ -1,12 +1,12 @@
 package com.jgsudhakar.spring.mq.entity;
 
-import com.jgsudhakar.base.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @Author : Sudhakar Tangellapalli
@@ -19,7 +19,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "STUDENT")
 @EqualsAndHashCode(callSuper = false)
-public class StudentEntity extends BaseEntity {
+public class StudentEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

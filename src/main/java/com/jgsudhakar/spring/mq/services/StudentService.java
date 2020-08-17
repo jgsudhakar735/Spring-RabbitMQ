@@ -1,6 +1,5 @@
 package com.jgsudhakar.spring.mq.services;
 
-import com.jgsudhakar.base.service.BaseDBServices;
 import com.jgsudhakar.spring.mq.dto.request.StudentReq;
 import com.jgsudhakar.spring.mq.dto.response.StudentRes;
 import com.jgsudhakar.spring.mq.entity.StudentEntity;

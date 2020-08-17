@@ -1,11 +1,11 @@
 package com.jgsudhakar.spring.mq.entity;
 
-import com.jgsudhakar.base.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @Author : Sudhakar Tangellapalli
@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeEntity extends BaseEntity {
+public class EmployeeEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "AS_SEQ")

@@ -1,9 +1,9 @@
 package com.jgsudhakar.spring.mq.services.impl;
 
-import com.jgsudhakar.base.exception.BaseException;
 import com.jgsudhakar.spring.mq.dto.request.StudentReq;
 import com.jgsudhakar.spring.mq.dto.response.StudentRes;
 import com.jgsudhakar.spring.mq.entity.StudentEntity;
+import com.jgsudhakar.spring.mq.exception.BaseException;
 import com.jgsudhakar.spring.mq.repository.StudentRepository;
 import com.jgsudhakar.spring.mq.services.StudentService;
 import com.jgsudhakar.spring.mq.util.MapperUtility;
@@ -33,7 +33,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentRes save(StudentReq dto) throws BaseException {
         StudentEntity studentEntity = mapperUtility.convertToDBEntity(dto);
-        studentEntity = studentRepository.saveOrUpdateRecord(studentEntity);
+        studentEntity = studentRepository.save(studentEntity);
         return mapperUtility.convertFromDBEntity(studentEntity);
     }
 
@@ -41,7 +41,7 @@ public class StudentServiceImpl implements StudentService {
     public StudentRes update(StudentReq dto) throws BaseException {
         StudentEntity studentEntity = mapperUtility.convertToDBEntity(dto);
         studentEntity.setId(dto.getId());
-        studentEntity = studentRepository.saveOrUpdateRecord(studentEntity);
+        studentEntity = studentRepository.save(studentEntity);
         return mapperUtility.convertFromDBEntity(studentEntity);
     }
 
